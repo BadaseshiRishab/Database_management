@@ -3,25 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Notes</title>
+  <title>Data Entry and View</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Personal Notes</h1>
-    
-    <form id="noteForm">
-      <label for="title">Title:</label>
-      <input type="text" id="title" required placeholder="Enter note title">
+    <h1>Enter Your Data</h1>
+    <form id="dataForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
       
-      <label for="content">Content:</label>
-      <textarea id="content" required placeholder="Enter note content"></textarea>
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
       
-      <button type="submit">Add Note</button>
+      <button type="submit">Submit</button>
     </form>
     
-    <h2>Your Notes</h2>
-    <div id="notesList"></div>
+    <h2>Stored Data</h2>
+    <div id="storedData"></div>
   </div>
   
   <script src="script.js"></script>

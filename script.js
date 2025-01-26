@@ -1,104 +1,63 @@
-document.getElementById('noteForm').addEventListener('submit', function(event) {
+document.getElementById('dataForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
-    // Get the title and content values from the form
-    const title = document.getElementById('title').value;
-    const content = document.getElementById('content').value;
+    // Get values from the form
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
     
-    // Create a new note object
-    const note = { title, content };
+    // Create an object to store the new entry
+    const data = { name, email };
     
-    // Get existing notes from localStorage or initialize an empty array
-    let notes = JSON.parse(localStorage.getItem('notes')) || [];
+    // Get the current list of stored data from localStorage
+    let existingData = JSON.parse(localStorage.getItem('userData'));
     
-    // Check if we are editing an existing note
-    const editIndex = document.getElementById('noteForm').getAttribute('data-edit-index');
+    // Debugging step: Check what type of data we are getting from localStorage
+    console.log("existingData:", existingData);
     
-    if (editIndex !== null) {
-      // If editing, update the note at the specified index
-      notes[editIndex] = note;
-      // Remove the edit index from the form
-      document.getElementById('noteForm').removeAttribute('data-edit-index');
-      document.getElementById('noteForm').querySelector('button').textContent = 'Add Note'; // Change button text back
-    } else {
-      // If not editing, add a new note to the array
-      notes.push(note);
+    // If there's no data or it's not an array, initialize it as an empty array
+    if (!Array.isArray(existingData)) {
+      existingData = [];
     }
-  
-    // Save the updated notes array to localStorage
-    localStorage.setItem('notes', JSON.stringify(notes));
     
-    // Display the updated notes list
-    displayNotes();
+    // Add the new data to the list
+    existingData.push(data);
     
-    // Clear the form fields
-    document.getElementById('noteForm').reset();
+    // Store the updated list in localStorage
+    localStorage.setItem('userData', JSON.stringify(existingData));
+    
+    // Display the stored data
+    displayStoredData();
+    
+    // Clear the form
+    document.getElementById('dataForm').reset();
   });
   
-  // Function to display notes
-  function displayNotes() {
-    // Get the notes from localStorage
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+  function displayStoredData() {
+    // Get the stored data from localStorage
+    const storedData = JSON.parse(localStorage.getItem('userData')) || [];
     
-    // Get the div where notes will be displayed
-    const notesListDiv = document.getElementById('notesList');
+    // Get the div where the data will be displayed
+    const storedDataDiv = document.getElementById('storedData');
     
-    // Clear the current list
-    notesListDiv.innerHTML = '';
+    // Clear the current displayed data
+    storedDataDiv.innerHTML = '';
     
-    // Check if there are any notes to display
-    if (notes.length > 0) {
-      notes.forEach((note, index) => {
-        // Create a div for each note
-        const noteDiv = document.createElement('div');
-        noteDiv.classList.add('note');
-        noteDiv.innerHTML = `
-          <div>
-            <h3>${note.title}</h3>
-            <p>${note.content}</p>
-          </div>
-          <button class="edit" onclick="editNote(${index})">Edit</button>
-          <button class="delete" onclick="deleteNote(${index})">Delete</button>
+    // Check if there is any stored data
+    if (storedData.length > 0) {
+      // Loop through each item in the stored data and display it
+      storedData.forEach(function(data, index) {
+        storedDataDiv.innerHTML += `
+          <p><strong>Entry ${index + 1}:</strong></p>
+          <p><strong>Name:</strong> ${data.name}</p>
+          <p><strong>Email:</strong> ${data.email}</p>
+          <hr>
         `;
-        notesListDiv.appendChild(noteDiv);
       });
     } else {
-      notesListDiv.innerHTML = '<p>No notes available</p>';
+      storedDataDiv.innerHTML = '<p>No data available</p>';
     }
   }
   
-  // Function to delete a note
-  function deleteNote(index) {
-    // Get notes from localStorage
-    let notes = JSON.parse(localStorage.getItem('notes')) || [];
-    
-    // Remove the note from the array by its index
-    notes.splice(index, 1);
-    
-    // Save the updated list back to localStorage
-    localStorage.setItem('notes', JSON.stringify(notes));
-    
-    // Display the updated list of notes
-    displayNotes();
-  }
-  
-  // Function to edit a note
-  function editNote(index) {
-    // Get the notes from localStorage
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    
-    // Get the note to be edited
-    const note = notes[index];
-    
-    // Set the form fields to the note's current values
-    document.getElementById('title').value = note.title;
-    document.getElementById('content').value = note.content;
-    
-    // Set an attribute on the form to indicate the note being edited
-    document.getElementById('noteForm').setAttribute('data-edit-index', index);
-    document.getElementById('noteForm').querySelector('button').textContent = 'Update Note'; // Change button text to 'Update'
-  }
-  
-  // Display notes on page load
-  window.onload = displayNotes;
+  // Display stored data on page load
+  window.onload = displayStoredData;
   

@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f9;
+    background-color: #f0f0f0;
   }
   
   .container {
@@ -15,7 +15,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 600px;
+    max-width: 500px; /* This ensures the form doesn't stretch too wide on large screens */
   }
   
   h1, h2 {
@@ -31,11 +31,12 @@ body {
     margin: 10px 0 5px;
   }
   
-  input, textarea {
-    padding: 10px;
+  input {
+    padding: 8px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px; /* Makes input text easier to read on mobile */
   }
   
   button {
@@ -45,34 +46,33 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px; /* Ensures button text is large enough */
   }
   
   button:hover {
     background-color: #45a049;
   }
   
-  #notesList {
+  #storedData {
     margin-top: 20px;
   }
   
-  .note {
-    background-color: #e9f7e9;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  /* Media Query for smaller screen sizes (mobile) */
+  @media (max-width: 600px) {
+    .container {
+      padding: 15px; /* Less padding for smaller screens */
+    }
   
-  button.delete {
-    background-color: red;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
+    input, button {
+      font-size: 14px; /* Slightly smaller text on mobile for better fit */
+    }
   
-  button.delete:hover {
-    background-color: darkred;
+    label {
+      font-size: 14px; /* Smaller label text on mobile */
+    }
+  
+    #storedData {
+      font-size: 14px; /* Ensures stored data text is readable on mobile */
+    }
   }
   
