@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Entry and View</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Enter Your Data</h1>
+    <form id="dataForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+      
+      <button type="submit">Submit</button>
+    </form>
+    
+    <h2>Stored Data</h2>
+    <div id="storedData"></div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
